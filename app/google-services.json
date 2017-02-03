@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "420658654189",
+    "firebase_url": "https://remindmeapp-f7018.firebaseio.com",
+    "project_id": "remindmeapp-f7018",
+    "storage_bucket": "remindmeapp-f7018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420658654189:android:f515085f01f20f86",
+        "android_client_info": {
+          "package_name": "com.example.admin.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420658654189-jmdfhfo1smg2si5rmgiv1vmpd9tr2i62.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABpgD2038chvgNh5K3S6Ln0b6j50BXeSA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
