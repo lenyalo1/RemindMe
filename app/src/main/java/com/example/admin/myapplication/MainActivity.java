@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextPassword;
     private TextView textViewSignUp;
 
+
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         buttonRegister.setOnClickListener(this);
         textViewSignUp.setOnClickListener(this);
+
 
     }
 
@@ -84,18 +86,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         }
                     }
-                })
+                });
     }
 
     @Override
     public void onClick(View v) {
-        if (View == buttonRegister) {
+        if (v == buttonRegister) {
             registerUser();
         }
 
-        if (View == textViewSignUp) {
+        if (v == textViewSignUp) {
             //will open login activity here
         }
+
 
     }
 }
