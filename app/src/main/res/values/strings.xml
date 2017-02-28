@@ -2,15 +2,17 @@
     <!-- Title for the application. [CHAR LIMIT=12] -->
     <string name="app_name">RemindMe</string>
 
-    <!-- Category name for phrases [CHAR LIMIT=20] -->
+    <!-- Category name for Exam Time table [CHAR LIMIT=20] -->
     <string name="category_Exam_Time_Table">Exam Time Table</string>
 
-    <!-- Category name for the vocabulary words for colors [CHAR LIMIT=20] -->
+    <!-- Category name for the vocabulary words for Periods [CHAR LIMIT=20] -->
     <string name="category_Periods">Periods</string>
 
-    <!-- Category name for the vocabulary words for numbers [CHAR LIMIT=20] -->
-    <string name="category_School_Work">School Work</string>
+    <!-- Category name for the vocabulary words for My School Work [CHAR LIMIT=20] -->
+    <string name="category_My_School_Work">School Work</string>
 
-    <!-- Category name for the vocabulary words for family members [CHAR LIMIT=20] -->
+    <!-- Category name for the vocabulary words for Announcements [CHAR LIMIT=20] -->
     <string name="category_Announcements">Announcements</string>
+    <!--Name for the vocabulary word for calender-->
+    <string name="app_names">Android CalendarView Example</string>
 </resources>

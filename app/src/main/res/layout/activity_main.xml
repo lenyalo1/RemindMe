@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/main_layout"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="#F5B316"
-android:orientation="vertical"
-android:weightSum="4">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5B316"
+    android:orientation="vertical"
+    android:weightSum="4">
 
     <TextView
-        android:id="@+id/numbers"
+        android:id="@+id/tv_school"
         style="@style/CategoryStyle"
         android:background="#F78536"
-        android:text="@string/category_School_Work" />
+        android:gravity="center"
+        android:text="@string/category_My_School_Work" />
 
     <TextView
-        android:id="@+id/family"
+        android:id="@+id/Exam_TT"
         style="@style/CategoryStyle"
+        android:gravity="center"
         android:background="@color/category_Exam_Time_Table"
         android:text="@string/category_Exam_Time_Table" />
 
-    <TextView
-        android:id="@+id/colors"
-        style="@style/CategoryStyle"
-        android:background="@color/category_Periods"
-        android:text="@string/category_Periods" />
 
     <TextView
-        android:id="@+id/phrases"
+        android:id="@+id/Announcements"
         style="@style/CategoryStyle"
+        android:gravity="center"
         android:background="@color/category_Announcements"
         android:text="@string/category_Announcements" />
+
+
 
 <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Logout"
+    android:gravity="center"
     android:id="@+id/logout_btn"
     android:layout_alignParentTop="true"
     android:layout_alignParentLeft="true"
