@@ -62,9 +62,8 @@ public class SchoolWorkActivity extends AppCompatActivity {
                 // create the AlertDialog
 
                 new AlertDialog.Builder(SchoolWorkActivity.this)
-                        .setTitle("Event Calendar")
-                        .setMessage("Click to schedule or view events.")
-
+                        .setTitle("My School Work Calendar")
+                        .setMessage("Click to schedule or view School work.")
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 //do nothing...yet

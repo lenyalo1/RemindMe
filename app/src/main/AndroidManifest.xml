@@ -35,9 +35,23 @@
                 </service>
             </intent-filter>
         </activity>
-        <activity android:name=".Exam_TT" />
-        <activity android:name=".SchoolWorkActivity" />
-        <activity android:name=".AnnouncementActivity"></activity>
+        <activity android:name=".Exam_TT"
+            android:label="@string/category_Exam_Time_Table"
+            android:parentActivityName=".MainActivity"
+            />
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+
+        <activity android:name=".SchoolWorkActivity"
+            android:label="@string/category_My_School_Work"
+            android:parentActivityName=".MainActivity" />
+
+        <activity android:name=".AnnouncementActivity"
+            android:label="@string/category_Announcements"
+            android:parentActivityName=".MainActivity"
+        >
+        </activity>
     </application>
 
 </manifest>
