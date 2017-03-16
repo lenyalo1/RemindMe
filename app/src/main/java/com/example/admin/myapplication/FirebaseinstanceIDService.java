@@ -7,11 +7,18 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 
 public class FirebaseinstanceIDService extends FirebaseInstanceIdService {
-    private static final String TAG = "FirebaseInstanceIDService";
 
+    public static final String TAG ="Notification";
     @Override
     public void onTokenRefresh() {
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        super.onTokenRefresh();
+
+        String token =FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "Token:" + token );
+
     }
 }
+
+
+
 

@@ -1,6 +1,6 @@
 <resources>
     <!-- Title for the application. [CHAR LIMIT=12] -->
-    <string name="app_name">RemindMe</string>
+    <string name="app_name">Remind Me</string>
 
     <!-- Category name for Exam Time table [CHAR LIMIT=20] -->
     <string name="category_Exam_Time_Table">Exam Time Table</string>
@@ -15,4 +15,6 @@
     <string name="category_Announcements">Announcements</string>
     <!--Name for the vocabulary word for calender-->
     <string name="app_names">Android CalendarView Example</string>
+    //for to do list
+    <string name="add_task_button">Add Task</string>
 </resources>

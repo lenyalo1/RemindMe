@@ -17,10 +17,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
 
-import org.w3c.dom.Text;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -38,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         TextView Exam_TT = (TextView) findViewById(R.id.Exam_TT);
         mSchool = (TextView) findViewById(R.id.tv_school);
+
+
 
         mSchool.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                        }
                    });
        }
+
     }
 
 }
