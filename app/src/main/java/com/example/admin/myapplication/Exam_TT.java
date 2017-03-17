@@ -1,31 +1,35 @@
 package com.example.admin.myapplication;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class Exam_TT extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+import java.util.ArrayList;
+import java.util.List;
 
+import bolts.Task;
 
-    //constant for logging and refreshing to a unique loader
+public class Exam_TT extends AppCompatActivity {
 
-    private static final String TAG = Exam_TT.class.getSimpleName();
-    private static final int TASK_LOADER_ID = 0;
-
-    ///Member variables for the adapter
-
-    private CustomCursorAdapter mAdapter;
-    RecyclerView mRecyclerView;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
+    private RecycleViewAdapter recyclerViewAdapter;
+    private EditText addTaskBox;
+    private DatabaseReference databaseReference;
+    private List<Task> allTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,115 +37,78 @@ public class Exam_TT extends AppCompatActivity implements LoaderManager.LoaderCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam__tt);
 
-        //set the recyclerViewer to its corresponding view
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.task_list);
-
-        //set the layout for the recyclerView to be a linear layout
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        //initialize the adapter and attach it to the recyclerView
-        mAdapter = new CustomCursorAdapter(this);
-        mRecyclerView.setAdapter(mAdapter);
-
-        // add a touch helper to the recyclerView to recognise when a user swipes to delete an item
-
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        allTask = new ArrayList<Task>();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        addTaskBox = (EditText) findViewById(R.id.add_task_box);
+        recyclerView = (RecyclerView) findViewById(R.id.task_list);
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        Button addTaskButton = (Button) findViewById(R.id.add_task_button);
+        addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
+            public void onClick(View view) {
 
-            // called when a user swipes left or right
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-
-                int id = (int) viewHolder.itemView.getTag();
-
-                //build appropriate uri with String row id appended
-
-                String stringId = Integer.toString(id);
-                Uri uri = TaskContract.TaskEntry.CONTENT_URI;
-                uri = uri.buildUpon().appendPath(stringId).build();
-
-                //complete (2) delete a single rown of data using a Contestresolver
-                getContentResolver().delete(uri, null, null);
-
-                //complete (3) restart the loader to requery for all tasks after a deletion
-                getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, Exam_TT.this);
-
-            }
-
-        }).attachToRecyclerView(mRecyclerView);
-
-        //set the floating action button to its corresponding view
-
-        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addTaskIntent = new Intent(Exam_TT.this, AddTaskActivity.class);
-                startActivity(addTaskIntent);
-
+                String enteredTask = addTaskBox.getText().toString();
+                if (TextUtils.isEmpty(enteredTask)) {
+                    Toast.makeText(Exam_TT.this, "You must enter a task first", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (enteredTask.length() < 6) {
+                    Toast.makeText(Exam_TT.this, "Task count must be more than 6", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                //Task taskObject = new Task(enteredTask);
+                //databaseReference.push().setValue(taskObject);
+                addTaskBox.setText("");
             }
         });
-        //ensure a loader is initialized and active
-
-        getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, this);
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        //re-querries for all tasks
-
-        getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, this);
-
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new AsyncTaskLoader<Cursor>(this) {
-
-            // initialise a cursor,
-            Cursor mTaskdata = null;
-
-            //onStartLoading() is called
+        databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
-            protected void onStartLoading() {
-                if (mTaskdata != null) {
-                    //deliver any previous
-                    deliverResult(mTaskdata);
-
-                } else {
-                    //force a new load
-                    forceLoad();
-                }
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                getAllTask(dataSnapshot);
             }
 
             @Override
-            public Cursor loadInBackground() {
-                return null;
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                getAllTask(dataSnapshot);
             }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                taskDeletion(dataSnapshot);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void getAllTask(DataSnapshot dataSnapshot) {
+        for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+            String taskTitle = singleSnapshot.getValue(String.class);
+            //allTask.add(new Task(taskTitle));
+            recyclerViewAdapter = new RecycleViewAdapter(Exam_TT.this, allTask);
+            recyclerView.setAdapter(recyclerViewAdapter);
         }
     }
+
+    private void taskDeletion(DataSnapshot dataSnapshot) {
+        for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+            String taskTitle = singleSnapshot.getValue(String.class);
+            for (int i = 0; i < allTask.size(); i++) {
+                if (allTask.get(i).getResult().equals(taskTitle)) {
+                    allTask.remove(i);
+                }
+            }
+            Log.d(TAG, "Task tile " + taskTitle);
+            recyclerViewAdapter.notifyDataSetChanged();
+            recyclerViewAdapter = new RecycleViewAdapter(Exam_TT.this, allTask);
+            recyclerView.setAdapter(recyclerViewAdapter);
+        }
     }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
-
 }
-
-
-

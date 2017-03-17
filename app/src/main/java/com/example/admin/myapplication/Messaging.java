@@ -42,7 +42,7 @@ public class Messaging extends FirebaseMessagingService {
 
 
         NotificationCompat.Builder notificationBuilder= new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.remind3_orig)
+                .setSmallIcon(R.drawable.messenger_bubble_large_blue)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)

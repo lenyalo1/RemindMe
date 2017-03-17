@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".Exam_TT"
-            android:label="@string/category_Exam_Time_Table"
+            android:label="@string/category_To_Do_List"
             android:parentActivityName=".MainActivity" />
 
         <meta-data
@@ -51,7 +51,7 @@
         <activity
             android:name=".AnnouncementActivity"
             android:label="@string/category_Announcements"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
 
         <service android:name=".Messaging">
             <intent-filter>
@@ -64,7 +64,9 @@
             <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
         </intent-filter>
 
-        <activity android:name=".AddTaskActivity"></activity>
+        <activity android:name=".AddTaskActivity" />
+        <activity android:name=".EditActivity" />
+        <activity android:name=".EditmessageClass"></activity>
     </application>
 
 </manifest>

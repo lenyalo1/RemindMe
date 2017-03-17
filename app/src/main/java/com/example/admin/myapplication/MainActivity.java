@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
+
             //user already signed in
             Toast.makeText(MainActivity.this, "You're now signed in.Welcome to Remind Me!", Toast.LENGTH_SHORT).show();
 
@@ -89,7 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivityForResult(AuthUI.getInstance()
 
                     .createSignInIntentBuilder()
-                    .setLogo(R.mipmap.remind3_orig)
+                    .setLogo(R.drawable.remind_me_logos)
+                    .setTheme(R.style.AppTheme)
                     .setIsSmartLockEnabled(false)
                     .setProviders(
                             AuthUI.GOOGLE_PROVIDER,

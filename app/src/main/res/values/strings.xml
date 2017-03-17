@@ -3,10 +3,7 @@
     <string name="app_name">Remind Me</string>
 
     <!-- Category name for Exam Time table [CHAR LIMIT=20] -->
-    <string name="category_Exam_Time_Table">Exam Time Table</string>
-
-    <!-- Category name for the vocabulary words for Periods [CHAR LIMIT=20] -->
-    <string name="category_Periods">Periods</string>
+    <string name="category_To_Do_List">To Do List</string>
 
     <!-- Category name for the vocabulary words for My School Work [CHAR LIMIT=20] -->
     <string name="category_My_School_Work">School Work</string>
